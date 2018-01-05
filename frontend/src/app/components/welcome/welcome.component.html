@@ -1,0 +1,23 @@
+<app-navbar></app-navbar>
+<div class="section no-pad-bot" id="index-banner">
+    <div class="container">
+        <div class="row">
+            <div class="col s6 offset-s3">
+                <form novalidate (ngSubmit)="onUrlSubmit(urlForm)" #urlForm="ngForm">
+                    <input required [(ngModel)]="url" #longUrl="ngModel" name="url" [ngClass]="{'invalid':longUrl.errors?.required && longUrl.touched || longUrl.errors && urlForm.submitted}"
+                        type="text" placeholder="Place your url here">
+                    <label class="right-alert" *ngIf="longUrl.errors?.required && longUrl.touched" class="error">
+                        Url is required
+                    </label>
+                    <br>
+                    <input [disabled]="!urlForm.form.valid" class="waves-effect waves-light btn" type="submit" value="Shorten!">
+                </form>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col s6 offset-s3">
+                <div class="lighten-2 flow-text" id="result"></div>
+            </div>
+        </div>
+    </div>
+</div>
