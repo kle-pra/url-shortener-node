@@ -11,12 +11,18 @@ export class WelcomeComponent implements OnInit {
   constructor(private urlService: UrlService) { }
 
   url: string;
+  shortUrl: string;
 
   ngOnInit() {
   }
 
   onUrlSubmit(val) {
-    console.log(val.form.value.url);
+    this.urlService.shortenUrl(val.form.value.url).subscribe(json=>{
+      this.shortUrl = json.shortUrl;
+    }, error => {
+      console.log(error);
+    });
   }
+
 
 }
