@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UrlService } from '../../services/url.service';
+import { FlashMessagesService } from 'angular2-flash-messages';
 
 @Component({
   selector: 'app-welcome',
@@ -8,9 +9,9 @@ import { UrlService } from '../../services/url.service';
 })
 export class WelcomeComponent implements OnInit {
 
-  constructor(private urlService: UrlService) { }
+  constructor(private urlService: UrlService, private flashService:FlashMessagesService) { }
 
-  url: string;
+  url: string = "";
   shortUrl: string;
 
   ngOnInit() {
@@ -20,6 +21,7 @@ export class WelcomeComponent implements OnInit {
     this.urlService.shortenUrl(val.form.value.url).subscribe(json=>{
       this.shortUrl = json.shortUrl;
     }, error => {
+      this.flashService.show('Error in submission!', { timeout: 5000 });
       console.log(error);
     });
   }

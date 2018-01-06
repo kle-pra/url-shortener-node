@@ -24,8 +24,14 @@ app.post('/url', (req, res) => {
     let longUrl = req.body.url;
     let shortUrl = '';
     let host = req.protocol + '://' + req.get('host');
-    console.log(host);
     // if already in db use it else create new
+    if(longUrl ==undefined || longUrl == ""){
+        console.log("error - no url parameter");
+        res.status(500).send('Invalid input')
+        return;
+    }
+
+
     Url.findOne({ long_url: longUrl }, function (err, doc) {
         if (err) { throw err; }
 

@@ -3,10 +3,14 @@
         <div class="row">
             <div class="col s6 offset-s3">
                 <form novalidate (ngSubmit)="onUrlSubmit(urlForm)" #urlForm="ngForm">
-                    <input required [(ngModel)]="url" #longUrl="ngModel" name="url" [ngClass]="{'invalid':longUrl.errors?.required && longUrl.touched || longUrl.errors && urlForm.submitted}"
+                    <input required minlength="3" [(ngModel)]="url" #longUrl="ngModel" name="url" 
+                    [ngClass]="{'invalid':longUrl.errors?.required && longUrl.touched || longUrl.errors?.minlength || longUrl.errors && urlForm.submitted}"
                         type="text" placeholder="Place your url here">
                     <label class="right-alert" *ngIf="longUrl.errors?.required && longUrl.touched" class="error">
                         Url is required
+                    </label>
+                    <label class="right-alert" *ngIf="longUrl.errors?.minlength && longUrl.touched" class="error">
+                        Min lenght is 3
                     </label>
                     <br>
                     <input [disabled]="!urlForm.form.valid" class="waves-effect waves-light btn" type="submit" value="Shorten!">

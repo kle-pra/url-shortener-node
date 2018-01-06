@@ -1,6 +1,7 @@
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule }   from '@angular/forms';
+import { FlashMessagesModule } from 'angular2-flash-messages';
 
 import { NgModule } from '@angular/core';
 
@@ -20,7 +21,9 @@ import { UrlService } from './services/url.service';
   imports: [
     BrowserModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    FlashMessagesModule.forRoot(),
+
   ],
   providers: [
     UrlService
