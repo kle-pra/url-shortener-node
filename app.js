@@ -12,7 +12,7 @@ app.use(express.static(path.join(__dirname, 'static')));
 app.use(parser.json());
 app.use(parser.urlencoded({ extended: true }));
 
-mongoose.connect(process.env.DB_URL ||  config.db);
+mongoose.connect(process.env.DB_URL || config.db);
 
 //index route
 app.get('/', (req, res) => {
@@ -30,7 +30,7 @@ app.post('/url', (req, res) => {
         if (err) { throw err; }
 
         if (doc) {
-            res.send({ 'shortUrl': host + '/' +doc.short_url });
+            res.send({ 'shortUrl': host + '/' + doc.short_url });
         } else {
             shortUrl = shortid.generate();
             let url = new Url({
@@ -50,7 +50,12 @@ app.post('/url', (req, res) => {
 app.get('/:shortUrl', function (req, res) {
     Url.findOne({ short_url: req.params.shortUrl }, function (err, doc) {
         if (doc) {
-            res.redirect(doc.long_url);
+            let url = doc.long_url;
+            // fix if no protocol
+            if (!/^(f|ht)tps?:\/\//i.test(url)) {
+                url = "http://" + url;
+            }
+            res.redirect(url);
         } else {
             res.redirect(config.host);
         }
