@@ -69,5 +69,5 @@ app.get('/:shortUrl', function (req, res) {
 });
 
 let server = app.listen(process.env.PORT || 3000, () => {
-    console.log("App is running on port 3000");
+    console.log("App is running");
 });
